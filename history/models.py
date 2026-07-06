@@ -62,6 +62,27 @@ class Match(models.Model):
         '相手の得点',
         validators=[MinValueValidator(0)],
     )
+    
+    
+    goal_scorers = models.TextField(
+        '得点者',
+        blank=True,
+        default='',
+    )
+
+    yellow_cards = models.TextField(
+        '警告者',
+        blank=True,
+        default='',
+    )
+
+    red_cards = models.TextField(
+        '退場者',
+        blank=True,
+        default='',
+    )
+
+
     venue = models.CharField('会場', max_length=200)
 
     class Meta:
