@@ -1,0 +1,118 @@
+{% extends 'history/base.html' %}
+
+{% block title %}
+年度検索
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">年度検索</h2>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-auto">
+        <label class="form-label">
+            年を選択してください
+        </label>
+
+        
+    <select name="year" class="form-select">
+
+    {% for year in years %}
+        <option
+            value="{{ year.year }}"
+            {% if selected_year == year.year|stringformat:"s" %}
+                selected
+            {% endif %}
+        >
+            {{ year.year }}年
+        </option>
+    {% endfor %}
+
+    </select>
+
+    </div>
+
+    <div class="col-auto align-self-end">
+        <button class="btn btn-primary">
+            検索
+        </button>
+    </div>
+</form>
+
+{% if matches %}
+
+<h3 class="mt-5 mb-3">
+    {{ selected_year }}年の試合結果一覧
+</h3>
+
+<table class="table table-bordered table-hover">
+
+    <thead class="table-light">
+
+        <tr>
+            <th>日付</th>
+            <th>大会</th>
+            <th>対戦国</th>
+            <th>会場</th>
+            <th>結果</th>
+            <th>スコア</th>
+            <th>詳細</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for match in matches %}
+
+        <tr>
+
+            <td>
+                {{ match.match_date|date:"Y/m/d" }}
+            </td>
+
+            <td>
+                {{ match.competition.name }}
+            </td>
+
+            <td>
+                {{ match.country.name }}
+            </td>
+
+            <td>
+                {{ match.venue }}
+            </td>
+
+            <td>
+                {{ match.result_symbol }}
+            </td>
+
+            <td>
+                {{ match.score_japan }}
+                -
+                {{ match.score_opponent }}
+            </td>
+
+            <td>
+                #TODO: 詳細ページへのリンクを追加
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endif %}
+
+{% if selected_year and not matches %}
+<div class="alert alert-warning">
+
+    該当する試合結果がありません。
+
+</div>
+{% endif %}
+
+{% endblock %}
