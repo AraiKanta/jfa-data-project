@@ -96,6 +96,9 @@ class Command(BaseCommand):
                         "competition": competition,
                         "score_japan": row["score_japan"],
                         "score_opponent": row["score_opponent"],
+                        "goal_scorers": row["goal_scorers"],
+                        "yellow_cards": row["yellow_cards"],
+                        "red_cards": row["red_cards"],
                         "venue": row["venue"],
                     },
                 )
