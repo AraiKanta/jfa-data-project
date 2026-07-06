@@ -7,17 +7,14 @@
         サッカー日本代表の全試合結果を検索・閲覧できます。
     </p>
     <div class="list-group list-group-flush mx-auto" style="max-width: 400px;">
-        <a href="#" class="list-group-item list-group-item-action py-3">
+        <a href="{% url 'history:year_search' %}" class="list-group-item list-group-item-action py-3">
             年度検索
         </a>
-        <a href="#" class="list-group-item list-group-item-action py-3">
+        <a href="{% url 'history:country_record' %}" class="list-group-item list-group-item-action py-3">
             国別戦績
         </a>
         <a href="#" class="list-group-item list-group-item-action py-3">
             大会一覧
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-3">
-            統計情報
         </a>
         <a href="/admin/" class="list-group-item list-group-item-action py-3">
             管理画面（ログイン）

@@ -1,0 +1,80 @@
+{% extends 'history/base.html' %}
+
+{% block title %}
+試合詳細
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">
+    試合詳細
+</h1>
+
+<table class="table table-bordered">
+
+    <tr>
+        <th>試合日</th>
+        <td>{{ match.match_date }}</td>
+    </tr>
+
+    <tr>
+        <th>対戦国</th>
+        <td>{{ match.country.name }}</td>
+    </tr>
+
+    <tr>
+        <th>大会</th>
+        <td>{{ match.competition.name }}</td>
+    </tr>
+
+    <tr>
+        <th>会場</th>
+        <td>{{ match.venue }}</td>
+    </tr>
+
+    <tr>
+        <th>結果</th>
+        <td>{{ match.result_symbol }}</td>
+    </tr>
+
+    <tr>
+        <th>スコア</th>
+        <td>
+            {{ match.score_japan }}
+            -
+            {{ match.score_opponent }}
+        </td>
+    </tr>
+
+    <tr>
+        <th>得点者</th>
+        <td>{{ match.goal_scorers|linebreaksbr }}</td>
+    </tr>
+
+    <tr>
+        <th>警告者</th>
+        <td>{{ match.yellow_cards|linebreaksbr }}</td>
+    </tr>
+
+    <tr>
+        <th>退場者</th>
+        <td>{{ match.red_cards|linebreaksbr }}</td>
+    </tr>
+
+</table>
+    {% if country_name %}
+    <a href="{% url 'history:country_record' %}?country_name={{ country_name }}"
+    class="btn btn-secondary"
+    >
+     戻る
+    </a>
+
+    {% else %}
+    <a href="{% url 'history:year_search' %}?year={{ year }}"
+    class="btn btn-secondary"
+    >
+     戻る
+    </a>
+    {% endif %}
+
+{% endblock %}

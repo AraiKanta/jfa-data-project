@@ -76,7 +76,7 @@
             </td>
 
             <td>
-                {{ match.country.name }}
+                <a href="{% url 'history:country_record' %}?country_name={{ match.country.name }}">{{ match.country.name }}</a>
             </td>
 
             <td>
@@ -94,7 +94,10 @@
             </td>
 
             <td>
-                #TODO: 詳細ページへのリンクを追加
+                <a href="{% url 'history:match_detail' match.id %}?year={{ selected_year }}"
+                    class="btn btn-sm btn-outline-primary">
+                    詳細
+                </a>
             </td>
 
         </tr>
