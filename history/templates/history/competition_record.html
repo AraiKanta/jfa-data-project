@@ -1,0 +1,133 @@
+{% extends 'history/base.html' %}
+
+{% block title %}
+大会一覧
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">
+    大会一覧
+</h1>
+
+<form method="get">
+
+    <div class="row">
+
+        <select name="competition" class="form-select">
+
+            <option value="">
+                大会を選択してください
+            </option>
+            {% for competition in competitions %}
+            <option
+                value="{{ competition.id }}"
+                {% if selected_competition_id == competition.id|stringformat:"s" %}
+                    selected
+                {% endif %}
+            >
+                {{ competition.name }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <div class="col-auto">
+
+            <button type="submit" class="btn btn-primary">
+                検索
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
+{% if competition %}
+
+<h2 class="mt-5">
+    {{ competition.name }} 戦績
+</h2>
+
+<p>
+
+    通算：
+    {{ total_matches }}試合
+
+    {{ wins }}勝
+
+    {{ draws }}分
+
+    {{ losses }}敗
+
+    得点{{ goals_for }}
+
+    失点{{ goals_against }}
+
+    勝率 {{ win_rate }}%
+
+</p>
+
+{% endif %}
+
+<table class="table table-bordered">
+
+    <thead>
+
+        <tr>
+
+            <th>日付</th>
+            <th>対戦国</th>
+            <th>会場</th>
+            <th>結果</th>
+            <th>スコア</th>
+            <th>詳細</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for match in matches %}
+
+    <tr>
+
+        <td>
+            {{ match.match_date|date:"Y年n月j日" }}
+        </td>
+
+        <td>
+            {{ match.country.name }}
+        </td>
+
+        <td>
+            {{ match.venue }}
+        </td>
+
+        <td>
+            {{ match.result_symbol }}
+        </td>
+
+        <td>
+            {{ match.score_japan }}
+            -
+            {{ match.score_opponent }}
+        </td>
+
+        <td>
+            <a href="{% url 'history:match_detail' match.id %}?competition={{ competition.id }}"
+                class="btn btn-sm btn-outline-primary">
+                詳細
+            </a>
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

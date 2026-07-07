@@ -134,14 +134,23 @@
 </div>
 
 
+    <!-- 大会別戦績 -->
+    {% if competition_id %}
+    <a href="{% url 'history:competition_record' %}?competition={{ competition_id }}"
+    class="btn btn-secondary"
+    >
+    戻る
+    </a>
 
-    {% if country_name %}
+    <!-- 国別戦績 -->
+    {% elif country_name %}
     <a href="{% url 'history:country_record' %}?country_name={{ country_name }}"
     class="btn btn-secondary"
     >
      戻る
     </a>
 
+    <!-- 年度別戦績 -->
     {% else %}
     <a href="{% url 'history:year_search' %}?year={{ year }}"
     class="btn btn-secondary"
