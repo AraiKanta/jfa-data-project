@@ -120,3 +120,14 @@ class Match(models.Model):
             return
         if self.score_japan < 0 or self.score_opponent < 0:
             raise ValidationError('得点は0以上で入力してください。')
+
+    @property
+    def goal_scorers_list(self):
+        if not self.goal_scorers:
+            return []
+
+        return [
+        s.strip()
+        for s in self.goal_scorers.split(',')
+        ]
+
