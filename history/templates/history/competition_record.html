@@ -98,7 +98,7 @@
         </td>
 
         <td>
-            {{ match.country.name }}
+            <a href="{% url 'history:country_record' %}?country_name={{ match.country.name }}">{{ match.country.name }}</a>
         </td>
 
         <td>
