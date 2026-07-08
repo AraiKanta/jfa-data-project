@@ -184,8 +184,10 @@ class Command(BaseCommand):
                         "competition": competition,
 
                         # 得点
-                        "score_japan": row["score_japan"],
-                        "score_opponent": row["score_opponent"],
+
+                        "score_japan": int(float(row["score_japan"])),
+                        "score_opponent": int(float(row["score_opponent"])),
+
 
                         # 詳細情報
                         "goal_scorers": row["goal_scorers"],
