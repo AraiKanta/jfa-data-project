@@ -1,4 +1,6 @@
 # 実行手順
+## 仮想環境を作る
+```python -m venv myvenv```
 ## 仮想環境を起動する
 ```myvenv\Scripts\activate```
 ## サーバーを立ち上げる
