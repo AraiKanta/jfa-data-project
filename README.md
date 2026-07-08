@@ -3,6 +3,8 @@
 ```python -m venv myvenv```
 ## 仮想環境を起動する
 ```myvenv\Scripts\activate```
+## Djangoのインストール
+```pip install -r requirements.txt```
 ## サーバーを立ち上げる
 ```python manage.py runserver```
 ## アクセスする
