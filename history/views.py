@@ -153,10 +153,13 @@ def country_record(request):
         4. 得失点集計
     """
 
-    # 検索キーワード
-    keyword = request.GET.get(
-        'country_name',
-        ''
+    # DBから全取得
+    countries = Country.objects.all().order_by(
+        'name'
+    )
+
+    selected_country_id = request.GET.get(
+        'country'
     )
 
     # 初期値
@@ -172,46 +175,40 @@ def country_record(request):
     goals_for = 0
     goals_against = 0
 
-    if keyword:
+    if selected_country_id:
+        country = Country.objects.get(
+            pk=selected_country_id
+        )
 
-        # 国名部分一致検索
-        country = Country.objects.filter(
-            name__icontains=keyword
-        ).first()
+        matches = Match.objects.filter(
+            country=country
+        ).select_related(
+            'country',
+            'competition'
+        )
 
-        if country:
+         # 集計処理
+        for match in matches:
 
-            # 指定国との試合取得
-            matches = (
-                Match.objects
-                .filter(country=country)
-                .select_related(
-                    'competition',
-                    'country'
-                )
-            )
-
-            # 集計処理
-            for match in matches:
-
-                goals_for += match.score_japan
-                goals_against += match.score_opponent
+            goals_for += match.score_japan
+            goals_against += match.score_opponent
 
                 # 勝利
-                if match.score_japan > match.score_opponent:
-                    wins += 1
+            if match.score_japan > match.score_opponent:
+                wins += 1
 
                 # 引分
-                elif match.score_japan == match.score_opponent:
-                    draws += 1
+            elif match.score_japan == match.score_opponent:
+               draws += 1
 
                 # 敗戦
-                else:
-                    losses += 1
+            else:
+                losses += 1
 
     # テンプレートへ渡すデータ
     context = {
-        'keyword': keyword,
+        'countries':countries,
+        'selected_country_id':selected_country_id,
         'country': country,
         'matches': matches,
         'wins': wins,
