@@ -10,10 +10,6 @@ from .models import Match, Country, Competition
 def top(request):
     return render(request, 'history/top.html')
 
-def index(request):
-    return render(request, 'history/index.html')
-
-
 def year_search(request):
 
     years = (
