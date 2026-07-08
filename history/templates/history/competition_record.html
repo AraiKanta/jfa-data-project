@@ -6,41 +6,36 @@
 
 {% block content %}
 
-<h1 class="mb-4">
-    大会一覧
-</h1>
+<h1 class="mb-4">大会一覧</h1>
 
-<form method="get">
-
-    <div class="row">
-
-        <select name="competition" class="form-select">
-
-            <option value="">
-                大会を選択してください
-            </option>
-            {% for competition in competitions %}
+<form method="get" class="row g-3 mb-4">
+    <div class="col-auto">
+        <label class="form-label">
+            大会を選択してください
+        </label>
+    <select name="competition" class="form-select">
+                {% for competition in competitions %}
             <option
                 value="{{ competition.id }}"
                 {% if selected_competition_id == competition.id|stringformat:"s" %}
-                    selected
+                selected
                 {% endif %}
-            >
+                >
                 {{ competition.name }}
             </option>
             {% endfor %}
-        </select>
-
-        <div class="col-auto">
-
-            <button type="submit" class="btn btn-primary">
-                検索
-            </button>
-
+    </select>
+    
+            <div class="col-auto">
+        
+                <button type="submit" class="btn btn-primary">
+                    検索
+                </button>
+        
+            </div>
+    
         </div>
-
-    </div>
-
+    
 </form>
 
 {% if competition %}
