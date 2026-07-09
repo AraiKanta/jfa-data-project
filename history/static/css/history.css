@@ -1,0 +1,22 @@
+/* ナビバー */
+.navbar {
+    background-color: #005BAC !important;
+    border-bottom: none !important;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.nav-link {
+    color: white !important;
+    font-weight: 500;
+}
+
+.nav-link:hover,
+.navbar-brand:hover {
+    color: #ffd54f !important; /* ゴールド */
+}
