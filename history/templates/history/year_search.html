@@ -72,7 +72,9 @@
             </td>
 
             <td>
-                {{ match.competition.name }}
+                <a href="{% url 'history:competition_record' %}?competition={{ match.competition.id }}">
+                    {{ match.competition.name }}
+                </a>
             </td>
 
             <td>
