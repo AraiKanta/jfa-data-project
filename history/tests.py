@@ -321,3 +321,104 @@ class CompetitionRecordTest(TestCase):
             response.context['total_matches'],
             1
         )
+
+# =====================================
+# 対戦国ランキングテスト
+# =====================================
+class CountryRankingTest(TestCase):
+    """
+    対戦国ランキング画面テスト
+    """
+
+    def setUp(self):
+        """
+        テストデータ作成
+        """
+
+        korea = Country.objects.create(
+            id=1,
+            name='韓国'
+        )
+
+        china = Country.objects.create(
+            id=2,
+            name='中国'
+        )
+
+        competition = Competition.objects.create(
+            id=1,
+            name='親善試合'
+        )
+
+        # 韓国 2試合
+        Match.objects.create(
+            match_date='2024-01-01',
+            country=korea,
+            competition=competition,
+            score_japan=1,
+            score_opponent=0,
+        )
+
+        Match.objects.create(
+            match_date='2024-02-01',
+            country=korea,
+            competition=competition,
+            score_japan=2,
+            score_opponent=1,
+        )
+
+        # 中国 1試合
+        Match.objects.create(
+            match_date='2024-03-01',
+            country=china,
+            competition=competition,
+            score_japan=1,
+            score_opponent=1,
+        )
+
+    def test_country_ranking(self):
+        """
+        対戦国ランキング取得確認
+        """
+
+        response = self.client.get(
+            reverse('history:country_ranking')
+        )
+
+        # 正常表示確認
+        self.assertEqual(
+            response.status_code,
+            200
+        )
+
+        # テンプレート確認
+        self.assertTemplateUsed(
+            response,
+            'history/country_ranking.html'
+        )
+
+        rankings = response.context[
+            'rankings'
+        ]
+
+        # 1位確認
+        self.assertEqual(
+            rankings[0].name,
+            '韓国'
+        )
+
+        self.assertEqual(
+            rankings[0].match_count,
+            2
+        )
+
+        # 2位確認
+        self.assertEqual(
+            rankings[1].name,
+            '中国'
+        )
+
+        self.assertEqual(
+            rankings[1].match_count,
+            1
+        )
