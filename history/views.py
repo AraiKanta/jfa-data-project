@@ -2,6 +2,7 @@
 # render            : テンプレートを表示
 # get_object_or_404 : データが存在しない場合に404エラーを返す
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Count
 
 # モデルを読み込む
 from .models import Match, Country, Competition
@@ -329,5 +330,29 @@ def competition_record(request):
     return render(
         request,
         'history/competition_record.html',
+        context,
+    )
+
+# =====================================
+# 対戦国ランキング
+# =====================================
+
+def country_ranking(request):
+    rankings = (
+        Country.objects.annotate(
+            match_count=Count('matches')
+        )
+        .order_by(
+            '-match_count'
+        )
+    )
+
+    context = {
+        'rankings':rankings,
+    }
+
+    return render(
+        request,
+        'history/country_ranking.html',
         context,
     )

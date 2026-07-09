@@ -1,0 +1,228 @@
+{% extends 'history/base.html' %}
+{% block title %}対戦国ランキング{% endblock %}
+{% block content %}
+<div class="row justify-content-center mb-5">
+
+    <div class="col-md-4">
+
+        <div class="card text-center shadow border-warning">
+
+            <div class="card-header bg-warning">
+                🏆 最多対戦国
+            </div>
+
+            <div class="card-body">
+
+                <h2>
+                    {{ rankings.0.name }}
+                </h2>
+
+                <h3 class="text-primary">
+                    {{ rankings.0.match_count }}試合
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div
+    class="row justify-content-center align-items-end text-center mb-5"
+>
+
+    <!-- 2位 -->
+
+    <div class="col-2">
+
+        <div class="card shadow mb-2">
+
+            <div class="card-body">
+
+                <h1>🥈</h1>
+
+                <h5>{{ rankings.1.name }}</h5>
+
+                <strong>
+                    {{ rankings.1.match_count }}
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div
+            class="bg-secondary text-white fw-bold rounded-top"
+            style="height:120px; line-height:120px;"
+        >
+            2位
+        </div>
+
+    </div>
+
+    <!-- 1位 -->
+
+    <div class="col-3">
+
+        <div
+            class="card shadow border-warning mb-2"
+        >
+
+            <div class="card-body">
+
+                <h1>🥇</h1>
+
+                <h4>{{ rankings.0.name }}</h4>
+
+                <h3 class="text-warning">
+
+                    {{ rankings.0.match_count }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div
+            class="bg-warning fw-bold rounded-top"
+            style="
+                height:180px;
+                line-height:180px;
+                font-size:1.5rem;
+            "
+        >
+            1位
+        </div>
+
+    </div>
+
+    <!-- 3位 -->
+
+    <div class="col-2">
+
+        <div class="card shadow mb-2">
+
+            <div class="card-body">
+
+                <h1>🥉</h1>
+
+                <h5>{{ rankings.2.name }}</h5>
+
+                <strong>
+                    {{ rankings.2.match_count }}
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div
+            class="bg-danger text-white fw-bold rounded-top"
+            style="height:90px; line-height:90px;"
+        >
+            3位
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+        <div class="card shadow">
+
+            <div
+                class="card-header bg-primary text-white"
+            >
+                対戦国ランキング
+            </div>
+
+            <div class="card-body">
+
+                <table
+                    class="
+                    table
+                    table-striped
+                    table-hover
+                    text-center
+                    "
+                >
+
+                    <thead>
+
+                        <tr>
+
+                            <th>順位</th>
+                            <th>国名</th>
+                            <th>試合数</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for country in rankings %}
+
+                        <tr>
+
+                            <td>
+
+                            {% if forloop.counter == 1 %}
+
+                                🥇
+
+                            {% elif forloop.counter == 2 %}
+
+                                🥈
+
+                            {% elif forloop.counter == 3 %}
+
+                                🥉
+
+                            {% else %}
+
+                                {{ forloop.counter }}
+
+                            {% endif %}
+
+                            </td>
+
+                            <td>
+                                <a href="{% url 'history:country_record' %}?country={{ country.id }}">
+                                    {{ country.name }}
+                                </a>
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge bg-success"
+                                >
+                                    {{ country.match_count }}
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
