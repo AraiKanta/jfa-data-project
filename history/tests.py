@@ -214,7 +214,7 @@ class CountryRecordTest(TestCase):
         response = self.client.get(
             reverse('history:country_record'),
             {
-                'country_name': 'ブラジル'
+                'country': '1'
             }
         )
 
