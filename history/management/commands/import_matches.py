@@ -190,7 +190,8 @@ class Command(BaseCommand):
 
 
                         # 詳細情報
-                        "goal_scorers": row["goal_scorers"],
+                        "home_goal_scorers": row["home_goal_scorers"],
+                        "away_goal_scorers":row["away_goal_scorers"],
                         "yellow_cards": row["yellow_cards"],
                         "red_cards": row["red_cards"],
                         "venue": row["venue"],
