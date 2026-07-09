@@ -1,3 +1,4 @@
+from email.policy import default
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -64,9 +65,15 @@ class Match(models.Model):
     )
     
     
-    goal_scorers = models.TextField(
+    home_goal_scorers = models.TextField(
         '得点者',
         blank=True,
+        default='',
+    )
+
+    away_goal_scorers = models.TextField(
+        '得点者',
+        blank = True,
         default='',
     )
 
@@ -120,14 +127,24 @@ class Match(models.Model):
             return
         if self.score_japan < 0 or self.score_opponent < 0:
             raise ValidationError('得点は0以上で入力してください。')
-
+    
     @property
-    def goal_scorers_list(self):
-        if not self.goal_scorers:
+    def home_goal_scorers_list(self):
+        if not self.home_goal_scorers:
             return []
 
         return [
-        s.strip()
-        for s in self.goal_scorers.split(',')
+            s.strip()
+            for s in self.home_goal_scorers.split(',')
+        ]
+
+    @property
+    def away_goal_scorers_list(self):
+        if not self.away_goal_scorers:
+            return []
+
+        return [
+            s.strip()
+            for s in self.away_goal_scorers.split(',')
         ]
 
