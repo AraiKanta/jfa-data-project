@@ -9,3 +9,9 @@
 ```python manage.py runserver```
 ## アクセスする
 [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
+# テスト編
+## unitテスト&カバレッジ付き
+```coverage run manage.py test```
+## カバレッジ表示 
+```coverage report```
