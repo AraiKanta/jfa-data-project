@@ -118,14 +118,14 @@ def match_detail(request, match_id):
     # 戻るボタンで検索条件を維持するため
     # GETパラメータを取得
     year = request.GET.get('year')
-    country_name = request.GET.get('country_name')
+    country_id = request.GET.get('country')
     competition_id = request.GET.get('competition')
 
     # テンプレートへ渡すデータ
     context = {
         'match': match,
         'year': year,
-        'country_name': country_name,
+        'country_id': country_id,
         'competition_id': competition_id,
     }
 

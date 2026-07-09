@@ -143,8 +143,8 @@
     </a>
 
     <!-- 国別戦績 -->
-    {% elif country_name %}
-    <a href="{% url 'history:country_record' %}?country_name={{ country_name }}"
+    {% elif country_id %}
+    <a href="{% url 'history:country_record' %}?country={{ country_id }}"
     class="btn btn-secondary"
     >
      戻る
