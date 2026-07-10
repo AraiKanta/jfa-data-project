@@ -241,3 +241,12 @@ UTF-8のdata.jsonを使用。
 -   Web画面表示成功
 
 以上でDocker環境構築からSQLite→MySQL移行まで完了。
+
+# その他　メモ
+| コマンド                        | 使うタイミング                                     |
+| --------------------------- | ------------------------------------------- |
+| `docker compose up`         | 既にビルド済みで、単に起動したいとき                          |
+| `docker compose up --build` | Dockerfile や requirements.txt を変更したとき       |
+| `docker compose down`       | コンテナを停止・削除したいとき                             |
+| `docker compose down -v`    | コンテナとボリューム（MySQLデータ含む）を削除したいとき（データが消えるので注意） |
+
