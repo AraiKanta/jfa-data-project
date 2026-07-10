@@ -1,0 +1,49 @@
+services:
+  web:
+  # 作ったDockerfileを使ってイメージをビルドする
+    build: .
+  # コンテナ起動時に実行されるコマンド
+    command: python manage.py runserver 0.0.0.0:8000
+  # コンテナ内の作業ディレクトリを指定する
+    volumes:
+      - .:/app
+
+    ports:
+      - "8000:8000"
+        
+  # dbサービスが起動してからwebを起動する
+    depends_on:
+      db:
+        condition: service_healthy
+
+# ================================
+# MySQL
+# ================================
+  db:
+    image: mysql:8.4
+
+    restart: always
+
+    environment:
+    # データベースを作る
+      MYSQL_DATABASE: jfa_match_history
+      MYSQL_USER: django
+      MYSQL_PASSWORD: django
+      MYSQL_ROOT_PASSWORD: root
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    # MySQLのヘルスチェックを追加 MYSQL_ROOT_PASSWORD が root である前提
+    # MySQLのコンテナが起動してから、MySQLが利用可能になるまで待機するための設定
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mysql_data:

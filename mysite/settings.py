@@ -28,7 +28,11 @@ SECRET_KEY = 'django-insecure-jq)1^kvx^%h_q#n2_saz!7s1)s-hn2vtr&6i(lrn*8k(nxit@p
 DEBUG = True
 
 # 鯖にはあげてない
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com',  '192.168.1.97']
+ALLOWED_HOSTS = [
+    '127.0.0.1',  
+    '192.168.1.97', 
+    'localhost'
+    ]
 
 
 # Application definition
@@ -76,10 +80,25 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+# ============================================
+# データベース設定（MySQL）
+# Docker Compose の db サービスへ接続する
+# ============================================
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "jfa_match_history",
+        "USER": "django",
+        "PASSWORD": "django",
+        "HOST": "db",          # docker-compose.yml のサービス名
+        "PORT": "3306",
     }
 }
 

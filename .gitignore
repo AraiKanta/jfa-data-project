@@ -6,3 +6,6 @@ myvenv
 db.sqlite3
 /static
 .DS_Store
+
+# Django fixture
+data.json
