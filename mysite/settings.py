@@ -27,7 +27,8 @@ SECRET_KEY = 'django-insecure-jq)1^kvx^%h_q#n2_saz!7s1)s-hn2vtr&6i(lrn*8k(nxit@p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+# 鯖にはあげてない
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com',  '192.168.1.97']
 
 
 # Application definition
@@ -52,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'matches.urls'
+ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'matches.wsgi.application'
+WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
 # Database
