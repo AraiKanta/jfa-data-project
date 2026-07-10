@@ -242,7 +242,7 @@ UTF-8のdata.jsonを使用。
 
 以上でDocker環境構築からSQLite→MySQL移行まで完了。
 
-# その他　メモ
+# その他
 | コマンド                        | 使うタイミング                                     |
 | --------------------------- | ------------------------------------------- |
 | `docker compose up`         | 既にビルド済みで、単に起動したいとき                          |
@@ -250,6 +250,7 @@ UTF-8のdata.jsonを使用。
 | `docker compose down`       | コンテナを停止・削除したいとき                             |
 | `docker compose down -v`    | コンテナとボリューム（MySQLデータ含む）を削除したいとき（データが消えるので注意） |
 
+## メモ 
 * docker compose up：既存のイメージを使ってコンテナを起動する。
 * docker compose up --build：イメージを再ビルドしてからコンテナを起動する。
 * 通常の開発では docker compose up を使い、Dockerfile や依存ライブラリを変更したときだけ --build を付けるのがおすすめです。
