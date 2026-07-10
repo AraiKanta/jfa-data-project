@@ -250,3 +250,11 @@ UTF-8のdata.jsonを使用。
 | `docker compose down`       | コンテナを停止・削除したいとき                             |
 | `docker compose down -v`    | コンテナとボリューム（MySQLデータ含む）を削除したいとき（データが消えるので注意） |
 
+* docker compose up：既存のイメージを使ってコンテナを起動する。
+* docker compose up --build：イメージを再ビルドしてからコンテナを起動する。
+* 通常の開発では docker compose up を使い、Dockerfile や依存ライブラリを変更したときだけ --build を付けるのがおすすめです。
+
+参考資料
+[Docker Compose CLI リファレンス:](https://docs.docker.com/reference/cli/docker/compose/up/) 
+[Docker Compose の概要:](https://docs.docker.com/compose/)
+
