@@ -254,6 +254,11 @@ UTF-8のdata.jsonを使用。
 * docker compose up：既存のイメージを使ってコンテナを起動する。
 * docker compose up --build：イメージを再ビルドしてからコンテナを起動する。
 * 通常の開発では docker compose up を使い、Dockerfile や依存ライブラリを変更したときだけ --build を付けるのがおすすめです。
+* Djangoの管理画面を開く場合、
+```bash
+docker compose exec web python manage.py createsuperuser
+```
+を打ってからアカウントを作成。ログインする。
 
 参考資料
 [Docker Compose CLI リファレンス:](https://docs.docker.com/reference/cli/docker/compose/up/) 
