@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 
 from history.apps import HistoryConfig
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +29,11 @@ SECRET_KEY = 'django-insecure-jq)1^kvx^%h_q#n2_saz!7s1)s-hn2vtr&6i(lrn*8k(nxit@p
 DEBUG = True
 
 # 鯖にはあげてない
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com',  '192.168.1.97']
+ALLOWED_HOSTS = [
+    '127.0.0.1',  
+    '192.168.1.97', 
+    'localhost'
+    ]
 
 
 # Application definition
@@ -76,10 +81,25 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+# ============================================
+# データベース設定（MySQL）
+# Docker Compose の db サービスへ接続する
+# ============================================
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.getenv("MYSQL_DATABASE"),
+        "USER": os.getenv("MYSQL_USER"),
+        "PASSWORD": os.getenv("MYSQL_PASSWORD"),
+        "HOST": os.getenv("MYSQL_HOST"),
+        "PORT": os.getenv("MYSQL_PORT"),
     }
 }
 
