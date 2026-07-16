@@ -31,19 +31,19 @@
         <div class="mt-3">
 
             {% if match.result == 'win' %}
-                <span class="badge bg-success">
-                    ○ 勝利
-                </span>
+            <span class="badge bg-success">
+                ○ 勝利
+            </span>
 
             {% elif match.result == 'draw' %}
-                <span class="badge bg-secondary">
-                    △ 引分
-                </span>
+            <span class="badge bg-secondary">
+                △ 引分
+            </span>
 
             {% else %}
-                <span class="badge bg-danger">
-                    ● 敗戦
-                </span>
+            <span class="badge bg-danger">
+                ● 敗戦
+            </span>
 
             {% endif %}
 
@@ -95,9 +95,9 @@
             <div class="card-body">
 
                 <ul>
-                {% for scorer in match.home_goal_scorers_list %}
+                    {% for scorer in match.home_goal_scorers_list %}
                     <li>{{ scorer }}</li>
-                {% endfor %}
+                    {% endfor %}
                 </ul>
 
             </div>
@@ -115,9 +115,9 @@
             <div class="card-body">
 
                 <ul>
-                {% for scorer in match.away_goal_scorers_list %}
+                    {% for scorer in match.away_goal_scorers_list %}
                     <li>{{ scorer }}</li>
-                {% endfor %}
+                    {% endfor %}
                 </ul>
 
             </div>
@@ -160,29 +160,23 @@
 </div>
 
 
-    <!-- 大会別戦績 -->
-    {% if competition_id %}
-    <a href="{% url 'history:competition_record' %}?competition={{ competition_id }}"
-    class="btn btn-secondary"
-    >
+<!-- 大会別戦績 -->
+{% if competition_id %}
+<a href="{% url 'history:competition_record' %}?competition={{ competition_id }}" class="btn btn-secondary">
     戻る
-    </a>
+</a>
 
-    <!-- 国別戦績 -->
-    {% elif country_id %}
-    <a href="{% url 'history:country_record' %}?country={{ country_id }}"
-    class="btn btn-secondary"
-    >
-     戻る
-    </a>
+<!-- 国別戦績 -->
+{% elif country_name %}
+<a href="{% url 'history:country_record' %}?country={{ country_name }}" class="btn btn-secondary">
+    戻る
+</a>
 
-    <!-- 年度別戦績 -->
-    {% else %}
-    <a href="{% url 'history:year_search' %}?year={{ year }}"
-    class="btn btn-secondary"
-    >
-     戻る
-    </a>
-    {% endif %}
+<!-- 年度別戦績 -->
+{% else %}
+<a href="{% url 'history:year_search' %}?year={{ year }}" class="btn btn-secondary">
+    戻る
+</a>
+{% endif %}
 
 {% endblock %}

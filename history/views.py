@@ -119,14 +119,14 @@ def match_detail(request, match_id):
     # 戻るボタンで検索条件を維持するため
     # GETパラメータを取得
     year = request.GET.get('year')
-    country_id = request.GET.get('country')
+    country_name = request.GET.get('country')
     competition_id = request.GET.get('competition')
 
     # テンプレートへ渡すデータ
     context = {
         'match': match,
         'year': year,
-        'country_id': country_id,
+        'country_name': country_name,
         'competition_id': competition_id,
     }
 
@@ -159,7 +159,7 @@ def country_record(request):
         'name'
     )
 
-    selected_country_id = request.GET.get(
+    country_name = request.GET.get(
         'country'
     )
 
@@ -176,40 +176,42 @@ def country_record(request):
     goals_for = 0
     goals_against = 0
 
-    if selected_country_id:
-        country = Country.objects.get(
-            pk=selected_country_id
-        )
+    if country_name:
 
-        matches = Match.objects.filter(
-            country=country
-        ).select_related(
-            'country',
-            'competition'
-        )
+    # 国名から国を取得
+        country = Country.objects.filter(
+            name=country_name
+        ).first()
 
-         # 集計処理
-        for match in matches:
+        if country:
 
-            goals_for += match.score_japan
-            goals_against += match.score_opponent
+            matches = (
+                Match.objects
+                .filter(country=country)
+                .select_related(
+                    'country',
+                    'competition'
+                )
+            )
 
-                # 勝利
-            if match.score_japan > match.score_opponent:
-                wins += 1
+            for match in matches:
 
-                # 引分
-            elif match.score_japan == match.score_opponent:
-               draws += 1
+                goals_for += match.score_japan
+                goals_against += match.score_opponent
 
-                # 敗戦
-            else:
-                losses += 1
+                if match.score_japan > match.score_opponent:
+                    wins += 1
+
+                elif match.score_japan == match.score_opponent:
+                    draws += 1
+
+                else:
+                    losses += 1
 
     # テンプレートへ渡すデータ
     context = {
         'countries':countries,
-        'selected_country_id':selected_country_id,
+        'country_name':country_name,
         'country': country,
         'matches': matches,
         'wins': wins,

@@ -14,23 +14,11 @@
             国を選択してください
         </label>
 
-    
-    <select name="country">
-        {% for country in countries %}
 
-            <option
-            value="{{ country.id }}"
-            {% if selected_country_id == country.id|stringformat:"s" %}
-                selected
-            {% endif %}
-        >
-            {{ country.name }}
-            </option>
+        <input type="text" name="country" list="country-list" value="{{ country_name|default:'' }}" class="form-country"
+            placeholder="国名を入力してください">
 
-        {% endfor %}
 
-    </select>
-    
     </div>
 
     <div class="col-auto align-self-end">
@@ -78,68 +66,68 @@
 
     <thead>
 
-    <tr>
+        <tr>
 
-        <th>日付</th>
+            <th>日付</th>
 
-        <th>大会</th>
+            <th>大会</th>
 
-        <th>会場</th>
+            <th>会場</th>
 
-        <th>結果</th>
+            <th>結果</th>
 
-        <th>スコア</th>
+            <th>スコア</th>
 
-        <th>詳細</th>
+            <th>詳細</th>
 
-    </tr>
+        </tr>
 
     </thead>
 
     <tbody>
 
-    {% for match in matches %}
+        {% for match in matches %}
 
-    <tr>
+        <tr>
 
-        <td>
-            {{ match.match_date }}
-        </td>
+            <td>
+                {{ match.match_date }}
+            </td>
 
-        <td>
-            <a href="{% url 'history:competition_record' %}?competition={{ match.competition.id }}">
-                {{ match.competition.name }}
-            </a>
-        </td>
+            <td>
+                <a href="{% url 'history:competition_record' %}?competition={{ match.competition.id }}">
+                    {{ match.competition.name }}
+                </a>
+            </td>
 
-        <td>
-            {{ match.venue }}
-        </td>
+            <td>
+                {{ match.venue }}
+            </td>
 
-        <td>
-            {{ match.result_symbol }}
-        </td>
+            <td>
+                {{ match.result_symbol }}
+            </td>
 
-        <td>
+            <td>
 
-            {{ match.score_japan }}
+                {{ match.score_japan }}
 
-            -
+                -
 
-            {{ match.score_opponent }}
+                {{ match.score_opponent }}
 
-        </td>
+            </td>
 
-        <td>
-            <a href="{% url 'history:match_detail' match.id %}?country={{ country.id }}"
-                class="btn btn-sm btn-outline-primary">
-                詳細
-            </a>
-        </td>
+            <td>
+                <a href="{% url 'history:match_detail' match.id %}?country={{ country.name }}"
+                    class="btn btn-sm btn-outline-primary">
+                    詳細
+                </a>
+            </td>
 
-    </tr>
+        </tr>
 
-    {% endfor %}
+        {% endfor %}
 
     </tbody>
 
